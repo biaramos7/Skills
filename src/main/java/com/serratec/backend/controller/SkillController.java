@@ -1,11 +1,14 @@
 package com.serratec.backend.controller;
 
+import com.serratec.backend.DTO.SkillDTO;
 import com.serratec.backend.exception.SkillException;
 import com.serratec.backend.model.Skill;
 import com.serratec.backend.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/skill")
@@ -17,6 +20,11 @@ public class SkillController {
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody Skill skill) throws SkillException {
         return ResponseEntity.ok(service.create(skill));
+    }
+
+    @GetMapping("/find-all")
+    public ResponseEntity<List<SkillDTO>> findAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @DeleteMapping("/delete/{id}")

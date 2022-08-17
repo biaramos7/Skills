@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name = "usuario")
 public class User {
 
     @Id
@@ -27,4 +28,7 @@ public class User {
     private String password;
 
     private LocalDate lastLoginDate;
+
+    @OneToMany
+    private List<UserSkill> userSkills;
 }

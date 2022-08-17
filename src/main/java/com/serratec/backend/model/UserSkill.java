@@ -20,11 +20,13 @@ public class UserSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
     @NotNull
-    private Integer userId; //fk
+    private User user; //fk
 
+    @ManyToOne
     @NotNull
-    private Integer skillId; //fk
+    private Skill skill; //fk
 
     @NotNull
     private Integer knowledgeLevel; //de 1 a 10
