@@ -37,12 +37,13 @@ public class SkillService {
 
     public String update(Skill skill, Integer id) throws SkillException {
         Optional<Skill> optional = repository.findById(id);
+        System.out.println("ID -> " + id);
+        System.out.println("Skill -> " + optional);
         if (optional.isEmpty()) {
             throw new SkillException("O Id informado não foi encontrado.");
         }
         boolean atualiza = false;
         Skill oldSkill = optional.get();
-
         if(skill.getName() != null && !oldSkill.getName().equals(skill.getName())){
             oldSkill.setName(skill.getName());
             atualiza = true;

@@ -47,6 +47,7 @@ public class UserService {
 
     public String update(User user, Integer id) throws UserException {
         Optional<User> optional = repository.findById(id);
+        System.out.println("usuario: " + optional);
         if (optional.isEmpty()) {
             throw new UserException("O Id informado não foi encontrado.");
         }

@@ -16,10 +16,14 @@ public class UserController {
 
     @Autowired
     UserService service;
-
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody User user) throws UserException {
         return ResponseEntity.ok(service.create(user));
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody User user) throws UserException {
+        return ResponseEntity.ok(service.update(user, id));
     }
 
     @GetMapping("/find-all")
