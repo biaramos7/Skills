@@ -29,7 +29,7 @@ public class UserService {
         verificaExiste(user);
         user.setPassword(bCrypt.encode(user.getPassword()));
         repository.save(user);
-        return ("Usuário criado com sucesso");
+        return "Usuário criado com sucesso";
     }
 
     public String delete(Integer id) {
