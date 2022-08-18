@@ -21,15 +21,17 @@ public class UserSkill {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     @NotNull
-    private User user; //fk
+    private User user;
 
     @ManyToOne
+    @JoinColumn(name = "skill_id")
     @NotNull
-    private Skill skill; //fk
+    private Skill skill;
 
     @NotNull
-    private Integer knowledgeLevel; //de 1 a 10
+    private Integer knowledgeLevel;
 
     @NotNull
     private LocalDate createdAt;

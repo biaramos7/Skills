@@ -11,12 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SkillDTO {
 
+    private Integer id;
     private String name;
     private String version;
     private String description;
     private String imageURL;
 
     public SkillDTO(Skill skill) {
+        this.id = skill.getId();
         this.name = skill.getName();
         this.version = skill.getVersion();
         this.description = skill.getDescription();

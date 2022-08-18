@@ -29,6 +29,6 @@ public class User {
 
     private LocalDate lastLoginDate;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<UserSkill> userSkills;
 }

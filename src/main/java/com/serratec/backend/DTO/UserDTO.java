@@ -12,10 +12,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserDTO {
 
+    private Integer id;
     private String login;
     private LocalDate lastLoginDate;
 
     public UserDTO(User user) {
+        this.id = user.getId();
         this.login = user.getLogin();
         this.lastLoginDate = user.getLastLoginDate();
     }
