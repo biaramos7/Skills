@@ -41,19 +41,19 @@ public class SkillService {
         }
         boolean atualiza = false;
         Skill oldSkill = optional.get();
-        if(skill.getName() != null && !oldSkill.getName().equals(skill.getName())){
+        if (skill.getName() != null && !oldSkill.getName().equals(skill.getName())) {
             oldSkill.setName(skill.getName());
             atualiza = true;
         }
-        if(skill.getVersion() != null && !oldSkill.getVersion().equals(skill.getVersion())){
+        if (skill.getVersion() != null && !oldSkill.getVersion().equals(skill.getVersion())) {
             oldSkill.setVersion(skill.getVersion());
             atualiza = true;
         }
-        if(skill.getDescription() != null && !oldSkill.getDescription().equals(skill.getDescription())){
+        if (skill.getDescription() != null && !oldSkill.getDescription().equals(skill.getDescription())) {
             oldSkill.setDescription(skill.getDescription());
             atualiza = true;
         }
-        if(skill.getImageURL() != null && !oldSkill.getImageURL().equals(skill.getImageURL())){
+        if (skill.getImageURL() != null && !oldSkill.getImageURL().equals(skill.getImageURL())) {
             oldSkill.setImageURL(skill.getImageURL());
             atualiza = true;
         }

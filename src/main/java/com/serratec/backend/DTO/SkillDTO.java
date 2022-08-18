@@ -1,7 +1,6 @@
 package com.serratec.backend.DTO;
 
 import com.serratec.backend.model.Skill;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

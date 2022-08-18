@@ -21,7 +21,7 @@ public class ApiError {
         timestamp = LocalDateTime.now();
     }
 
-    ApiError(HttpStatus status){
+    ApiError(HttpStatus status) {
         this();
         this.status = status;
     }

@@ -84,9 +84,9 @@ public class UserService {
         UserSkill user = new UserSkill();
         user.setUser(userSkill.getUser());
         user.setSkill(userSkill.getSkill());
-        if(userSkill.getKnowledgeLevel() > 0 && userSkill.getKnowledgeLevel() < 10 ){
-        user.setKnowledgeLevel(userSkill.getKnowledgeLevel());
-        }else{
+        if (userSkill.getKnowledgeLevel() > 0 && userSkill.getKnowledgeLevel() < 10) {
+            user.setKnowledgeLevel(userSkill.getKnowledgeLevel());
+        } else {
             throw new UserException("KnowledgeLevel deve ser entre 1 e 10");
         }
         user.setCreatedAt(LocalDate.now());
@@ -94,7 +94,6 @@ public class UserService {
         return "Skill associada com sucesso";
     }
 
-    //TODO: terminar listas -> deve retornar toda a skill associada a ele
     public List<UserSkill> listaSkills(Integer id) {
         Optional<User> optional = repository.findById(id);
         List<UserSkill> listUserSkill = new ArrayList<>();
@@ -110,13 +109,22 @@ public class UserService {
             oldUserSkill.setUpdatedAt(LocalDate.now());
             userSkillRepository.save(oldUserSkill);
             return "Level da Skill atualizado com sucesso";
-        }else{
+        } else {
             throw new UserException("KnowledgeLevel deve ser entre 1 e 10");
         }
     }
 
-    public String deleteRelacao (Integer id) {
+    public String deleteRelacao(Integer id) {
         userSkillRepository.deleteById(id);
         return "Relação user_skill deletada com sucesso.";
+    }
+
+    public void updateLastLogin(String username) {
+        Optional<User> optional = repository.findByLogin(username);
+        if (optional.isPresent()) {
+            User user = optional.get();
+            user.setLastLoginDate(LocalDate.now());
+            repository.save(user);
+        }
     }
 }

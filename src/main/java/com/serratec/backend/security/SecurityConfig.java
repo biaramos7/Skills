@@ -1,5 +1,6 @@
 package com.serratec.backend.security;
 
+import com.serratec.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     JwtUtil jwtUtil;
 
+    @Autowired
+    UserService userService;
+
     public SecurityConfig(UserDetalheService service, BCryptPasswordEncoder bCrypt) {
         this.service = service;
         this.bCrypt = bCrypt;
@@ -39,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil, userService))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, service))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

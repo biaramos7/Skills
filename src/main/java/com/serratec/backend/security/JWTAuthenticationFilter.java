@@ -1,6 +1,7 @@
 package com.serratec.backend.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.serratec.backend.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,17 +16,18 @@ import java.util.ArrayList;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    private final UserService userService;
     private AuthenticationManager authenticationManager;
     private JwtUtil jwtUtil;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.userService = userService;
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        System.out.println("Entra attempt Authentication");
         try {
             LoginDTO login = new ObjectMapper()
                     .readValue(request.getInputStream(), LoginDTO.class);
@@ -42,10 +44,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) {
-        System.out.println("Entra sucessful Authentication  ");
         String username = ((UserDetalhe) authResult.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("access-control-expose-headers", "Authorization");
+        userService.updateLastLogin(username);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserSkillRepository extends JpaRepository<UserSkill, Integer> {
-    @Query(value="select s.id as id, s.name as name ," +
+    @Query(value = "select s.id as id, s.name as name ," +
             " s.version as version, s.description as description," +
             " s.imageURL as imageURL, us.knowledgeLevel as knowledgeLevel," +
             " us.createdAt as createdAt, us.updatedAt as updatedAt   " +

@@ -17,6 +17,7 @@ public class UserController {
 
     @Autowired
     UserService service;
+
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody User user) throws UserException {
         return ResponseEntity.ok(service.create(user));
@@ -39,25 +40,21 @@ public class UserController {
 
     //Relação UserSkill
 
-    //Recebe id usuario, id skill e level
     @PostMapping("/associar-skill")
     public ResponseEntity<String> associarSkill(@RequestBody UserSkill userSkill) throws UserException {
         return ResponseEntity.ok(service.associarSkill(userSkill));
     }
 
-    //Recebe id usário
     @PutMapping("/lista-skills/{id}")
     public ResponseEntity<List<UserSkill>> listaSkills(@PathVariable Integer id) throws UserException {
         return ResponseEntity.ok(service.listaSkills(id));
     }
 
-    //Recebe id relacional e novo level
     @PutMapping("/update-level/{id}")
     public ResponseEntity<String> updateLevel(@PathVariable Integer id, @RequestBody UserSkill userSkill) throws UserException {
         return ResponseEntity.ok(service.updateLevel(userSkill, id));
     }
 
-    //Recebe id relacional
     @DeleteMapping("/delete-relacao/{id}")
     public ResponseEntity<String> deleteRelacao(@PathVariable Integer id) {
         return ResponseEntity.ok(service.deleteRelacao(id));

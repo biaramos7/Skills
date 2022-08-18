@@ -1,6 +1,5 @@
 package com.serratec.backend.security;
 
-import com.serratec.backend.exception.UserException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,7 +45,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
-        System.out.println("Entra username password authenticatin token  ");
         if (jwtUtil.isValidToken(token)) {
             String username = jwtUtil.getUserName(token);
             UserDetails user = service.loadUserByUsername(username);
