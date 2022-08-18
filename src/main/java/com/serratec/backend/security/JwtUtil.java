@@ -24,6 +24,9 @@ public class JwtUtil {
     private UserDetalheService service;
 
     public String generateToken(String username) {
+        System.out.println("Entra generate Token  ");
+        System.out.println("token expiration  ->  " + TOKEN_EXPIRATION);
+        System.out.println("token secret  ->  " + TOKEN_SECRET);
         UserDetails user = service.loadUserByUsername(username);
         return Jwts.builder().setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION))
@@ -32,6 +35,7 @@ public class JwtUtil {
     }
 
     public boolean isValidToken(String token) {
+        System.out.println("Entra is valid token  ");
         Claims claims = getClaims(token);
         if (claims == null)
             return false;

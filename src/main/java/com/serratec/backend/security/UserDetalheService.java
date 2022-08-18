@@ -18,6 +18,7 @@ public class UserDetalheService implements UserDetailsService {
 
     @Override
     public UserDetalhe loadUserByUsername(String username) throws UsuarioNotFoundException {
+        System.out.println("Entra load by username  ");
         Optional<User> usuario = repository.findByLogin(username);
         if (usuario.isEmpty()) {
             throw new UsuarioNotFoundException("Usuário " + username + "não encontrado");
