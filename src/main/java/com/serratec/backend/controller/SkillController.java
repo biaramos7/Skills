@@ -2,9 +2,7 @@ package com.serratec.backend.controller;
 
 import com.serratec.backend.DTO.SkillDTO;
 import com.serratec.backend.exception.SkillException;
-import com.serratec.backend.exception.UserException;
 import com.serratec.backend.model.Skill;
-import com.serratec.backend.model.User;
 import com.serratec.backend.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

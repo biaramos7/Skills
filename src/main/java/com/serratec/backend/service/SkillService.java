@@ -1,11 +1,8 @@
 package com.serratec.backend.service;
 
 import com.serratec.backend.DTO.SkillDTO;
-import com.serratec.backend.DTO.UserDTO;
 import com.serratec.backend.exception.SkillException;
-import com.serratec.backend.exception.UserException;
 import com.serratec.backend.model.Skill;
-import com.serratec.backend.model.User;
 import com.serratec.backend.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
