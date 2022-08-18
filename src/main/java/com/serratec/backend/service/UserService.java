@@ -1,6 +1,7 @@
 package com.serratec.backend.service;
 
 import com.serratec.backend.DTO.UserDTO;
+import com.serratec.backend.DTO.UserSkillDTO;
 import com.serratec.backend.exception.UserException;
 import com.serratec.backend.model.User;
 import com.serratec.backend.model.UserSkill;
@@ -94,10 +95,9 @@ public class UserService {
         return "Skill associada com sucesso";
     }
 
-    public List<UserSkill> listaSkills(Integer id) {
+    public List<UserSkillDTO> listaSkills(Integer id) {
         Optional<User> optional = repository.findById(id);
-        List<UserSkill> listUserSkill = new ArrayList<>();
-        listUserSkill = optional.get().getUserSkills();
+        List<UserSkillDTO> listUserSkill = userSkillRepository.findByUser(optional.get());
         return listUserSkill;
     }
 

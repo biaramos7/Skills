@@ -1,6 +1,7 @@
 package com.serratec.backend.controller;
 
 import com.serratec.backend.DTO.UserDTO;
+import com.serratec.backend.DTO.UserSkillDTO;
 import com.serratec.backend.exception.UserException;
 import com.serratec.backend.model.User;
 import com.serratec.backend.model.UserSkill;
@@ -46,7 +47,7 @@ public class UserController {
     }
 
     @PutMapping("/lista-skills/{id}")
-    public ResponseEntity<List<UserSkill>> listaSkills(@PathVariable Integer id) throws UserException {
+    public ResponseEntity<List<UserSkillDTO>> listaSkills(@PathVariable Integer id) throws UserException {
         return ResponseEntity.ok(service.listaSkills(id));
     }
 
