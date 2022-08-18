@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 public class BeanConfig {
@@ -23,5 +24,10 @@ public class BeanConfig {
         source.registerCorsConfiguration("/**", corsConfiguration);
 
         return source;
+    }
+
+    @Bean
+    public InternalResourceViewResolver defaultViewResolver() {
+        return new InternalResourceViewResolver();
     }
 }
