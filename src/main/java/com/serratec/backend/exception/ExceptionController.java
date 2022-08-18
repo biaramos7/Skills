@@ -24,6 +24,15 @@ public class ExceptionController {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(value
+            = {UsuarioNotFoundException.class})
+    protected ResponseEntity<Object> usuarioNotFound(UsuarioNotFoundException e) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
+        apiError.setMessage(e.getMessage());
+        apiError.setDebugMessage(e.getLocalizedMessage());
+        return buildResponseEntity(apiError);
+    }
+
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
