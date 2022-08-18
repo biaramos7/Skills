@@ -3,11 +3,14 @@ package com.serratec.backend.service;
 import com.serratec.backend.DTO.UserDTO;
 import com.serratec.backend.exception.UserException;
 import com.serratec.backend.model.User;
+import com.serratec.backend.model.UserSkill;
 import com.serratec.backend.repository.UserRepository;
+import com.serratec.backend.repository.UserSkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +23,9 @@ public class UserService {
 
     @Autowired
     BCryptPasswordEncoder bCrypt;
+
+    @Autowired
+    UserSkillRepository userSkillRepository;
 
     public void verificaExiste(User user) throws UserException {
         Optional<User> optional = repository.findByLogin(user.getLogin());
@@ -70,5 +76,47 @@ public class UserService {
     public String delete(Integer id) {
         repository.deleteById(id);
         return "Usuario deletado com sucesso.";
+    }
+
+    //Relação User Skill
+
+    public String associarSkill(UserSkill userSkill) throws UserException {
+        UserSkill user = new UserSkill();
+        user.setUser(userSkill.getUser());
+        user.setSkill(userSkill.getSkill());
+        if(userSkill.getKnowledgeLevel() > 0 && userSkill.getKnowledgeLevel() < 10 ){
+        user.setKnowledgeLevel(userSkill.getKnowledgeLevel());
+        }else{
+            throw new UserException("KnowledgeLevel deve ser entre 1 e 10");
+        }
+        user.setCreatedAt(LocalDate.now());
+        userSkillRepository.save(user);
+        return "Skill associada com sucesso";
+    }
+
+    //TODO: terminar listas -> deve retornar toda a skill associada a ele
+    public List<UserSkill> listaSkills(Integer id) {
+        Optional<User> optional = repository.findById(id);
+        List<UserSkill> listUserSkill = new ArrayList<>();
+        listUserSkill = optional.get().getUserSkills();
+        return listUserSkill;
+    }
+
+    public String updateLevel(UserSkill userSkill, Integer id) throws UserException {
+        if (userSkill.getKnowledgeLevel() > 0 && userSkill.getKnowledgeLevel() < 10) {
+            Optional<UserSkill> optional = userSkillRepository.findById(id);
+            UserSkill oldUserSkill = optional.get();
+            oldUserSkill.setKnowledgeLevel(userSkill.getKnowledgeLevel());
+            oldUserSkill.setUpdatedAt(LocalDate.now());
+            userSkillRepository.save(oldUserSkill);
+            return "Level da Skill atualizado com sucesso";
+        }else{
+            throw new UserException("KnowledgeLevel deve ser entre 1 e 10");
+        }
+    }
+
+    public String deleteRelacao (Integer id) {
+        userSkillRepository.deleteById(id);
+        return "Relação user_skill deletada com sucesso.";
     }
 }

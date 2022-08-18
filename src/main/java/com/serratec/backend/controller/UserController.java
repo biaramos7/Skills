@@ -3,6 +3,7 @@ package com.serratec.backend.controller;
 import com.serratec.backend.DTO.UserDTO;
 import com.serratec.backend.exception.UserException;
 import com.serratec.backend.model.User;
+import com.serratec.backend.model.UserSkill;
 import com.serratec.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +35,31 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Integer id) {
         return ResponseEntity.ok(service.delete(id));
+    }
+
+    //Relação UserSkill
+
+    //Recebe id usuario, id skill e level
+    @PostMapping("/associar-skill")
+    public ResponseEntity<String> associarSkill(@RequestBody UserSkill userSkill) throws UserException {
+        return ResponseEntity.ok(service.associarSkill(userSkill));
+    }
+
+    //Recebe id usário
+    @PutMapping("/lista-skills/{id}")
+    public ResponseEntity<List<UserSkill>> listaSkills(@PathVariable Integer id) throws UserException {
+        return ResponseEntity.ok(service.listaSkills(id));
+    }
+
+    //Recebe id relacional e novo level
+    @PutMapping("/update-level/{id}")
+    public ResponseEntity<String> updateLevel(@PathVariable Integer id, @RequestBody UserSkill userSkill) throws UserException {
+        return ResponseEntity.ok(service.updateLevel(userSkill, id));
+    }
+
+    //Recebe id relacional
+    @DeleteMapping("/delete-relacao/{id}")
+    public ResponseEntity<String> deleteRelacao(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.deleteRelacao(id));
     }
 }
